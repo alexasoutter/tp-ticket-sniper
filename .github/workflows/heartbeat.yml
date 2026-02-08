@@ -1,0 +1,16 @@
+name: Daily Heartbeat
+on:
+  schedule:
+    # 22:00 (10 PM) GMT/UTC everyday
+    - cron: '0 22 * * *'
+  workflow_dispatch: # Allows you to test it manually
+
+jobs:
+  heartbeat:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send Heartbeat to Discord
+        run: |
+          curl -H "Content-Type: application/json" \
+               -d '{"content": "✅ **Daily Heartbeat**: Your Timepiece Sniper is still active and watching for tickets. Sleep well! 😴", "username": "Heartbeat Bot"}' \
+               ${{ secrets.DISCORD_WEBHOOK }}
